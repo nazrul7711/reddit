@@ -1,10 +1,66 @@
 import { AuthOptions } from "next-auth";
-import prismaClient from "./prismaClient"
+import prismaClient from "./prismaClient";
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import GoogleProvider from "next-auth/providers/google";
+import { nanoid } from "nanoid";
 
+const nextOptions: AuthOptions = {
+  adapter: PrismaAdapter(prismaClient),
+  session: {
+    strategy: "jwt",
+  },
+  pages: {
+    signIn: "/sign-in",
+  },
+  providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_ID!,
+      clientSecret: process.env.GOOGLE_SECRET!,
+    }),
+  ],
+  callbacks: {
+    async session({ token, session }) {
+      if (token) {
+        session.user.id = token.id;
+        session.user.name = token.name;
+        session.user.email = token.email;
+        session.user.image = token.picture;
+        session.user.username = token.username;
+      }
+      return session;
+    },
+    async jwt({ token, user }) {
+      const dbUser = await prismaClient.user.findFirst({
+        where: {
+          email: token.email,
+        },
+      });
+      if (!dbUser) {
+        token.id = user!.id;
+        return token;
+      }
+      if (!dbUser.username) {
+        await prismaClient.user.update({
+          where: {
+            id: user.id,
+          },
+          data: {
+            username: nanoid(10),
+          },
+        });
+      }
+      return {
+        id: dbUser.id,
+        name: dbUser.name,
+        email: dbUser.email,
+        picture: dbUser.image,
+        username: dbUser.username,
+      };
+    },
+    redirect() {
+      return "/";
+    },
+  },
+};
 
-const authOptions:AuthOptions = {
-  adapter:PrismaAdapter(prismaClient),
-  providers:[]
-
-}
+export default nextOptions;
