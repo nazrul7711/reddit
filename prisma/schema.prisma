@@ -11,7 +11,7 @@ datasource db {
 
 model Account {
   id                 String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId             String
+  userId             String @db.ObjectId
   type               String
   provider           String
   providerAccountId  String
@@ -28,10 +28,15 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
+enum VoteType{
+  UP 
+  DOWN
+}
+
 model Session {
    id                 String  @id @default(auto()) @map("_id") @db.ObjectId
   sessionToken String   @unique
-  userId       String
+  userId       String @db.ObjectId
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
@@ -45,13 +50,102 @@ model User {
   accounts      Account[]
   sessions      Session[]
   username String?
+  post Post @relation(fields: [postId],references: [id])
+  postId String @unique @db.ObjectId
+  comment Comment @relation(fields: [commentId],references: [id])
+  commentId String @unique @db.ObjectId
+  commentVote CommentVote @relation(fields: [commentvoteId],references: [id])
+  commentvoteId String @unique @db.ObjectId
+  vote Vote @relation(fields: [voteId],references: [id])
+  voteId String @unique @db.ObjectId
+  subreddit Subreddit @relation(fields: [subredditId],references: [id])
+  subredditId String @unique @db.ObjectId
+  subscription Subscription @relation(fields: [subscriptionId],references: [id])
+  subscriptionId String @unique @db.ObjectId
 }
 
 model VerificationToken {
-   id                 String  @id @default(auto()) @map("_id") @db.ObjectId
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
   identifier String
   token      String   @unique
   expires    DateTime
 
   @@unique([identifier, token])
 }
+
+model Subreddit{
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  createdAt DateTime @default(now())  
+  updatedAt DateTime @updatedAt
+  posts Post[]
+  createdId String?
+  creator User?
+  subscribers Subscription[]
+
+}
+
+model Subscription{
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
+  user User?
+  userId String
+  subreddit Subreddit @relation(fields: [subredditId],references: [id])
+  subredditId String @db.ObjectId
+
+}
+
+
+model Post {
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
+  title String?
+  content Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  subreddit Subreddit @relation(fields: [subredditId],references: [id])
+  subredditId String @db.ObjectId
+  author User?
+  comments Comment[]
+  vote Vote @relation(fields: [voteId],references: [id])
+  voteId String @db.ObjectId @unique
+
+}
+model Comment{
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
+  text String
+  createdAt DateTime @default(now())
+  author User?
+  authorId String
+  post Post @relation(fields: [postId],references: [id])
+  postId String @db.ObjectId
+  replyToId String? @db.ObjectId @unique
+  replyTo Comment? @relation("ReplyTo",fields: [replyToId],references: [id],onDelete:NoAction,onUpdate:NoAction)
+  replies Comment[] @relation("ReplyTo")
+  votes CommentVote[]
+  commentId String?
+  
+
+}
+model CommentVote{
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
+  comment Comment @relation(fields: [commentId],references: [id])
+  commentId String @db.ObjectId
+  user User?
+  type VoteType
+  userId String 
+
+}
+
+model Vote{
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
+  user User?
+  userId String
+  post Post?
+  postId String
+  type VoteType
+
+}
+
+//subreddit has posts
+//post has a user
+//post has comments
+//comment has a user

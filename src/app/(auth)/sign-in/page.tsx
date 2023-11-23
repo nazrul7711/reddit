@@ -13,7 +13,7 @@ const Page = () => {
       >
         Home
       </Link>
-      <SignIn/>
+      <SignIn />
     </div>
   );
 };
