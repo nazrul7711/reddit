@@ -50,18 +50,18 @@ model User {
   accounts      Account[]
   sessions      Session[]
   username String?
-  post Post @relation(fields: [postId],references: [id])
-  postId String @unique @db.ObjectId
-  comment Comment @relation(fields: [commentId],references: [id])
-  commentId String @unique @db.ObjectId
-  commentVote CommentVote @relation(fields: [commentvoteId],references: [id])
-  commentvoteId String @unique @db.ObjectId
-  vote Vote @relation(fields: [voteId],references: [id])
-  voteId String @unique @db.ObjectId
-  subreddit Subreddit @relation(fields: [subredditId],references: [id])
-  subredditId String @unique @db.ObjectId
-  subscription Subscription @relation(fields: [subscriptionId],references: [id])
-  subscriptionId String @unique @db.ObjectId
+  post Post? @relation(fields: [postId],references: [id])
+  postId String? @unique @db.ObjectId
+  comment Comment? @relation(fields: [commentId],references: [id])
+  commentId String? @unique @db.ObjectId
+  commentVote CommentVote? @relation(fields: [commentvoteId],references: [id])
+  commentvoteId String? @unique @db.ObjectId
+  vote Vote? @relation(fields: [voteId],references: [id])
+  voteId String? @unique @db.ObjectId
+  subreddit Subreddit? @relation(fields: [subredditId],references: [id])
+  subredditId String? @unique @db.ObjectId
+  subscription Subscription? @relation(fields: [subscriptionId],references: [id])
+  subscriptionId String? @unique @db.ObjectId
 }
 
 model VerificationToken {
@@ -75,7 +75,7 @@ model VerificationToken {
 
 model Subreddit{
   id String  @id @default(auto()) @map("_id") @db.ObjectId
-  name String
+  name String @unique
   createdAt DateTime @default(now())  
   updatedAt DateTime @updatedAt
   posts Post[]

@@ -42,7 +42,7 @@ const nextOptions: AuthOptions = {
       if (!dbUser.username) {
         await prismaClient.user.update({
           where: {
-            id: user.id,
+            id: dbUser.id,
           },
           data: {
             username: nanoid(10),
