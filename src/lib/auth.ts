@@ -1,11 +1,11 @@
 import { AuthOptions } from "next-auth";
-import prismaClient from "./prismaClient";
+import {db} from "./prismaClient";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import GoogleProvider from "next-auth/providers/google";
 import { nanoid } from "nanoid";
 
 const nextOptions: AuthOptions = {
-  adapter: PrismaAdapter(prismaClient),
+  adapter: PrismaAdapter(db),
   session: {
     strategy: "jwt",
   },
@@ -30,7 +30,7 @@ const nextOptions: AuthOptions = {
       return session;
     },
     async jwt({ token, user }) {
-      const dbUser = await prismaClient.user.findFirst({
+      const dbUser = await db.user.findFirst({
         where: {
           email: token.email,
         },
@@ -40,7 +40,7 @@ const nextOptions: AuthOptions = {
         return token;
       }
       if (!dbUser.username) {
-        await prismaClient.user.update({
+        await db.user.update({
           where: {
             id: dbUser.id,
           },

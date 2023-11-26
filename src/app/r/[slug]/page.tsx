@@ -1,4 +1,4 @@
-import MiniCreatePost from "@/components/MiniCreatePost";
+import MiniCreatePost, { MiniCreatePostProps } from "@/components/MiniCreatePost";
 import nextOptions from "@/lib/auth";
 import { getServerSession } from "next-auth";
 
@@ -6,14 +6,13 @@ import React from "react";
 
 const Page = async ({ params }: { params: { slug: string } }) => {
   let { slug } = params;
-  let session = await getServerSession(nextOptions);
-
-  console.log(session);
+  let session = await getServerSession(nextOptions) as MiniCreatePostProps;
   return (
-    <div>
+    <div className="">
       <h1>r/{slug}</h1>
-      {}
-      {/* <MiniCreatePost/> */}
+      {session && <MiniCreatePost session={session} />}
+      <div className="grid grid-cols-3 auto-rows-[minmax(100px,auto)] gap-4">
+      </div>
     </div>
   );
 };

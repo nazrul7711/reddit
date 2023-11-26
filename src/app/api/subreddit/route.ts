@@ -1,8 +1,9 @@
 import nextOptions from "@/lib/auth";
+import { db } from "@/lib/prismaClient";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import prismaClient from "@/lib/prismaClient";
 
+//here we are taking a input from frontend and trying top create a subreddit and if subreddit is created then this user is its first subscriber
 export async function POST(req: Request) {
   try {
     let session = await getServerSession(nextOptions);
@@ -12,8 +13,10 @@ export async function POST(req: Request) {
         { status: 401 }
       );
     }
+    //take user
     let { name } = await req.json();
-    let existingSubreddit = await prismaClient.subreddit.findUnique({
+    //if we have a subreddit then return error
+    let existingSubreddit = await db.subreddit.findUnique({
       where: {
         name,
       },
@@ -24,13 +27,15 @@ export async function POST(req: Request) {
         { status: 409 }
       );
     }
-    let newSubreddit = await prismaClient.subreddit.create({
+    //otherwise create a subreddit , name is unique here and creator id is the current users id
+    let newSubreddit = await db.subreddit.create({
       data: {
         name,
         createdId: session.user.id,
       },
     });
-    await prismaClient.subscription.create({
+    //and subreddit has subscribers and this user is the first subscriber
+    await db.subscription.create({
       data: {
         userId: session.user.id,
         subredditId: newSubreddit.id,

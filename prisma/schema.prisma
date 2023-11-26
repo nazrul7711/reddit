@@ -82,7 +82,6 @@ model Subreddit{
   createdId String?
   creator User?
   subscribers Subscription[]
-
 }
 
 model Subscription{
@@ -91,7 +90,6 @@ model Subscription{
   userId String
   subreddit Subreddit @relation(fields: [subredditId],references: [id])
   subredditId String @db.ObjectId
-
 }
 
 
@@ -105,9 +103,7 @@ model Post {
   subredditId String @db.ObjectId
   author User?
   comments Comment[]
-  vote Vote @relation(fields: [voteId],references: [id])
-  voteId String @db.ObjectId @unique
-
+  votes Vote[]
 }
 model Comment{
   id String  @id @default(auto()) @map("_id") @db.ObjectId
@@ -139,13 +135,13 @@ model Vote{
   id String  @id @default(auto()) @map("_id") @db.ObjectId
   user User?
   userId String
-  post Post?
-  postId String
+  post Post @relation(fields: [postId],references: [id],onDelete: Cascade)
+  postId String @db.ObjectId
   type VoteType
 
 }
 
-//subreddit has posts
+//subreddit has posts creator subscriptions
 //post has a user
 //post has comments
 //comment has a user

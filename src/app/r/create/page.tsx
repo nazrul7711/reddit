@@ -10,24 +10,26 @@ import { ImSpinner2 } from "react-icons/im";
 const Page = () => {
   let router = useRouter();
   let inputRef = useRef<HTMLInputElement>(null);
-  let [isLoading,setIsLoading] = useState<boolean>(false)
+  let [isLoading, setIsLoading] = useState<boolean>(false);
   async function createCommunityHandler() {
     try {
-      setIsLoading(true)
+      setIsLoading(true);
       let res = await axios.post("/api/subreddit", {
         name: inputRef.current?.value,
       });
-      if(res.status===200){
-        router.push(`/r/${res.data.name}`)
+      if (res.status === 200) {
+        router.push(`/r/${res.data.name}`);
       }
-      
     } catch (error) {
       setIsLoading(false);
       if (error instanceof AxiosError) {
-        if (error.response?.status === 401 || error.response?.status === 409 || error.response?.status===500) {
+        if (
+          error.response?.status === 401 ||
+          error.response?.status === 409 ||
+          error.response?.status === 500
+        ) {
           toast.error(error.response.data.error);
         }
-        
       }
     }
   }
@@ -49,8 +51,9 @@ const Page = () => {
           Cancel
         </Button>
         <Button onClick={createCommunityHandler}>
-          {isLoading && <ImSpinner2 className="animate-spin"/>}
-          Create Community</Button>
+          {isLoading && <ImSpinner2 className="animate-spin" />}
+          Create Community
+        </Button>
       </div>
       <Toaster />
     </div>
