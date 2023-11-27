@@ -1,18 +1,19 @@
-
+import nextOptions from "@/lib/auth";
 import { db } from "@/lib/prismaClient";
 import { getServerSession } from "next-auth";
+import { NextResponse } from "next/server";
 
-
+//for subscribing to a reddit
 export async function POST(req: Request) {
   try {
-    const session = await getServerSession();
+    const session = await getServerSession(nextOptions);
 
-    if (!session?.user) {
-      return new Response("Unauthorized", { status: 401 });
+    if (!session) {
+      return NextResponse.json({ msg: "Unauthorised access" }, { status: 401 });
     }
 
-    const body = await req.json();
-    const { subredditId } = SubredditSubscriptionValidator.parse(body);
+    const { subredditId } = await req.json();
+
 
     // check if user has already subscribed to subreddit
     const subscriptionExists = await db.subscription.findFirst({
@@ -22,10 +23,14 @@ export async function POST(req: Request) {
       },
     });
 
+
     if (subscriptionExists) {
-      return new Response("You've already subscribed to this subreddit", {
-        status: 400,
-      });
+      return NextResponse.json(
+        { msg: "You've already subscribed to this subreddit" },
+        {
+          status: 400,
+        }
+      );
     }
 
     // create subreddit and associate it with the user
@@ -36,15 +41,13 @@ export async function POST(req: Request) {
       },
     });
 
-    return new Response(subredditId);
+    return NextResponse.json({ subredditId });
   } catch (error) {
-    error;
-    if (error instanceof z.ZodError) {
-      return new Response(error.message, { status: 400 });
-    }
-
-    return new Response(
-      "Could not subscribe to subreddit at this time. Please try later",
+    console.log(error)
+    return NextResponse.json(
+      {
+        msg: "Could not subscribe to subreddit at this time. Please try later",
+      },
       { status: 500 }
     );
   }

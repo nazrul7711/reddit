@@ -42,7 +42,7 @@ model Session {
 }
 
 model User {
-   id                 String  @id @default(auto()) @map("_id") @db.ObjectId
+  id   String  @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
   email         String?   @unique
   emailVerified DateTime?
@@ -88,7 +88,7 @@ model Subscription{
   id String  @id @default(auto()) @map("_id") @db.ObjectId
   user User?
   userId String
-  subreddit Subreddit @relation(fields: [subredditId],references: [id])
+  subreddit Subreddit @relation(fields: [subredditId],references: [id],onDelete:Cascade)
   subredditId String @db.ObjectId
 }
 
