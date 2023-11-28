@@ -1,46 +1,55 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Toaster } from "react-hot-toast";
 import { Button } from "./ui/button";
 import axios, { AxiosError } from "axios";
-import useSwr from "swr";
-import { db } from "@/lib/prismaClient";
+import useSWR from "swr";
 import { fetchSubscribers } from "@/lib/fetcher";
+import { db } from "@/lib/prismaClient";
+import { useSession } from "next-auth/react";
 
 type SubscribeLeaveToggleProps = {
-  isSubscribed: boolean;
   subredditId: string;
   subredditName: string;
 };
 
 const SubscribeLeaveToggle = ({
-  isSubscribed,
   subredditId,
   subredditName,
 }: SubscribeLeaveToggleProps) => {
-  let router = useRouter();
+  let [isSubscribed, setIsSubscribed] = useState(false);
+  let { data } = useSession();
+  useEffect(() => {
+    (async () => {
+      let response = await axios.get("/api/subreddit/isSubscribed", {
+        params: {
+          subredditName,
+          email: data?.user.email,
+        },
+      });
+      if (response.status === 200) {
+        setIsSubscribed(true);
+      }
+    })();
+  }, []);
   let [subscribed, setSubscribed] = useState<boolean>(isSubscribed);
-  let { data: subscriptionCountNew, mutate: mutateunSubscribe } = useSwr(
-    "/api/subreddit/unsubscribe",
-    fetchSubscribers
-  );
-  let { data, mutate: mutateSubscribe } = useSwr(
-    "/api/subreddit/subscriptionCount",
+  let { mutate: countMutate } = useSWR(
+    ["/api/subreddit/subscriptionCount", subredditName],
     fetchSubscribers
   );
 
   async function leaveHandler() {
     try {
-      const { data } = await axios.post("/api/subreddit/subscriptionCount", {
+      const { data } = await axios.post("/api/subreddit/unsubscribe", {
         subredditId,
       });
 
       if (data) {
         toast.success(data.msg);
       }
-      mutateunSubscribe();
+      countMutate();
       setSubscribed(false);
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -62,7 +71,7 @@ const SubscribeLeaveToggle = ({
       if (data) {
         toast.success("user subscribed successfully");
       }
-      mutateSubscribe();
+      countMutate();
       setSubscribed(true);
     } catch (error) {
       if (error instanceof AxiosError) {

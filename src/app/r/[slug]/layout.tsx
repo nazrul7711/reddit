@@ -1,3 +1,4 @@
+
 import { MiniCreatePostProps } from "@/components/MiniCreatePost";
 import nextOptions from "@/lib/auth";
 import { getServerSession } from "next-auth";
@@ -7,8 +8,10 @@ import { notFound } from "next/navigation";
 import SubscribeLeaveToggle from "@/components/SubscribeLeaveToggle";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
-import useSwr from "swr";
+import useSWR from "swr";
 import axios from "axios";
+import { fetchSubscribers } from "@/lib/fetcher";
+import ShowSubscriptionCount from "@/components/ShowSubscriptionCount";
 
 const SlugLayout = async ({
   children,
@@ -52,16 +55,8 @@ const SlugLayout = async ({
   const isSubscribed = !!subscription;
   //of course if no subreddit with this slug then return not found
   if (!subreddit) return notFound();
-  //count subscribers with this subreddit
-  // let subscriptionCount = await db.subscription.count({
-  //   where: {
-  //     subreddit: {
-  //       name: slug,
-  //     },
-  //   },
-  // });
-  // let subscriptionCount = await axios.get("/api/subreddit/subscriptionCount")
-  
+
+
   let currentUser = await db.user.findFirst({
     where: { email: session?.user.email },
   });
@@ -73,7 +68,7 @@ const SlugLayout = async ({
     new Date(`${subredditDate[2]}-${subredditDate[0]}-${subredditDate[1]}`);
   let options = { month: "long", day: "numeric", year: "numeric" };
   let newDate = date?.toLocaleDateString("en-US", options);
-  // console.log(session.id, "nano");
+
   return (
     <div className="grid grid-cols-9 gap-4">
       <div className="col-start-1 col-end-7">{children}</div>
@@ -86,7 +81,7 @@ const SlugLayout = async ({
             <span className="text-zinc-800">{newDate}</span>
           </div>
           <div className="flex justify-between">
-            Members <span>{43}</span>
+            Members <ShowSubscriptionCount slug={slug} />
           </div>
           {/* if the creator of this subreddit and current user are same */}
 
@@ -94,9 +89,8 @@ const SlugLayout = async ({
             <div className="w-3/5">you created this community</div>
           ) : null}
           {/* subreddit.createdId !== session?.user.id  */}
-          {true ? (
+          {isSubscribed ? (
             <SubscribeLeaveToggle
-              isSubscribed
               subredditId={subreddit.id}
               subredditName={slug}
             />
