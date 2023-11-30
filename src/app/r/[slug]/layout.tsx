@@ -1,4 +1,3 @@
-
 import { MiniCreatePostProps } from "@/components/MiniCreatePost";
 import nextOptions from "@/lib/auth";
 import { getServerSession } from "next-auth";
@@ -8,9 +7,7 @@ import { notFound } from "next/navigation";
 import SubscribeLeaveToggle from "@/components/SubscribeLeaveToggle";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
-import useSWR from "swr";
-import axios from "axios";
-import { fetchSubscribers } from "@/lib/fetcher";
+
 import ShowSubscriptionCount from "@/components/ShowSubscriptionCount";
 
 const SlugLayout = async ({
@@ -56,7 +53,6 @@ const SlugLayout = async ({
   //of course if no subreddit with this slug then return not found
   if (!subreddit) return notFound();
 
-
   let currentUser = await db.user.findFirst({
     where: { email: session?.user.email },
   });
@@ -96,7 +92,7 @@ const SlugLayout = async ({
             />
           ) : null}
           <Link
-            href={`r/${slug}/submit`}
+            href={`/r/${slug}/submit`}
             className={buttonVariants({
               variant: "outline",
               className: "w-full",
