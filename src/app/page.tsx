@@ -89,7 +89,7 @@ if u r using useSwr and want to pass data how will u do that?
 
 u can define a button seprate from form then how to set up link between form and button?
 
-
+hey explore how link got u link details in editor.js
 
 
 
