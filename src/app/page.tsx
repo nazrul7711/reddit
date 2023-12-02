@@ -26,6 +26,30 @@ export default function Home() {
           Create Community
         </Link>
       </div>
+
+      <ul>
+        <li className="list-image-none hover:list-image-[url(/check.svg)]">
+          one
+        </li>
+        <li className="list-image-none hover:list-image-[url(/check.svg)]">
+          two
+        </li>
+        <li className="list-image-none hover:list-image-[url(/check.svg)]">
+          three
+        </li>
+      </ul>
+      <button className="text-end bg-slate-500">button</button>
+      <div className="text-blue-700">Lula di silva</div>
+      <div className="underline underline-offset-4">Henry tsukamoto</div>
+      <div className="bg-emerald-300 after:content-['after']">
+        Pseudo Element
+      </div>
+      <div className="grid">
+        <label htmlFor="name" >
+          Name
+        </label>
+        <input type="text" id="name" className="border" />
+      </div>
     </main>
   );
 }
@@ -47,15 +71,47 @@ we add shadcn button this adds button component in ui folder
 
 if u wanna add button kind of style to a link then do className={buttonVariants()}
 
-tailwind flex,items-center,justify-between,px,py,mx,my,bg-zinc-200,h-fit or w-fit,rounded,animation-spin.ping.pulse.bounce,hover:animate-spin,
+tailwind flex,items-center,justify-between,px,py,mx,my,bg-zinc-200,h-fit or w-fit,rounded,animation-spin.ping.pulse.bounce,hover:animate-spin,weight,size,letter-spacing,line-clamp-2,leading-2,list-none,list-image-[],list-inside,how to text-align,text-decoration and text-decoration-color and text-decoration-style and text-underline-offset,text-transform,how vertical-align works and how to align vertically in tailwind,how to not do wrap,before:content-[],
+
 
 how to make a animation like spin-slow in tailwind
 
-if u have the intellisense then hovering over the classNames gives css
-
-use command click to know the type 
 
 why use Pick<"User","name|email">
+
+using firebase create a new project and then to find the credentials go to project settings in general tab scroll down to bottom find your apps and click </> icon to get javascript code for configuration 
+
+now out of this make a FIREBASE in env file and api key there export app from this file
+
+in file u wanna use firebase > let storage = getStorage(app); > const storageRef = ref(storage, 'some-child'); here instead of 'some-child' give your file name >
+
+const uploadTask = uploadBytesResumable(
+      storageRef,
+      await file.arrayBuffer()
+  );
+
+let results =  await new Promise((resolve, reject) => {
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+            do sth
+        },
+        (error) => {
+          reject(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref)
+            .then((downloadURL) => {
+              resolve(downloadURL);
+            })
+            .catch((error) => reject(error));
+        }
+      );
+    });
+
+const uploadResults: string[] = (await Promise.all(result)) as string[];
+
+also note that after u have to create storage then only data will get uploaded
 
 
 */

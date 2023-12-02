@@ -21,7 +21,7 @@ const Page = async ({params}:{params:{slug:string}}) => {
         <h2 className='font-semibold text-lg'>Create Post</h2>
         <p className='text-gray-400'>in r/{params.slug}</p>
       </div>
-      <Editor className="self-center w-4/5"/>
+      <Editor className="self-center w-4/5" subredditId=''/>
       <Button form='textarea-form' type='submit' className='w-4/5 self-center'>Post</Button>
     </div>
   )
