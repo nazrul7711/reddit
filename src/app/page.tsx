@@ -44,12 +44,8 @@ export default function Home() {
       <div className="bg-emerald-300 after:content-['after']">
         Pseudo Element
       </div>
-      <div className="grid">
-        <label htmlFor="name" >
-          Name
-        </label>
-        <input type="text" id="name" className="border" />
-      </div>
+      <div className="bg-purple-400 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-tr from-cyan-400 to-red-400 w-fit">HELLO WORLD</div>
+      
     </main>
   );
 }
@@ -71,7 +67,7 @@ we add shadcn button this adds button component in ui folder
 
 if u wanna add button kind of style to a link then do className={buttonVariants()}
 
-tailwind flex,items-center,justify-between,px,py,mx,my,bg-zinc-200,h-fit or w-fit,rounded,animation-spin.ping.pulse.bounce,hover:animate-spin,weight,size,letter-spacing,line-clamp-2,leading-2,list-none,list-image-[],list-inside,how to text-align,text-decoration and text-decoration-color and text-decoration-style and text-underline-offset,text-transform,how vertical-align works and how to align vertically in tailwind,how to not do wrap,before:content-[],
+tailwind flex,items-center,justify-between,px,py,mx,my,bg-zinc-200,h-fit or w-fit,rounded,animation-spin.ping.pulse.bounce,hover:animate-spin,weight,size,letter-spacing,line-clamp-2,leading-2,list-none,list-image-[],list-inside,how to text-align,text-decoration and text-decoration-color and text-decoration-style and text-underline-offset,text-transform,how vertical-align works and how to align vertically in tailwind,how to not do wrap,before:content-[],width:min-content and max-content and fit-content,min-w-max or min means,bg-clip-text,fixed,relative, left-1 bottom-1
 
 
 how to make a animation like spin-slow in tailwind
@@ -112,6 +108,10 @@ let results =  await new Promise((resolve, reject) => {
 const uploadResults: string[] = (await Promise.all(result)) as string[];
 
 also note that after u have to create storage then only data will get uploaded
+
+403,401,400
+
+do know in while making axios or fetch request pass headers:header here header comes from "next/headers"
 
 
 */

@@ -102,6 +102,7 @@ model Post {
   subreddit Subreddit @relation(fields: [subredditId],references: [id])
   subredditId String @db.ObjectId
   author User?
+  authorId String @db.ObjectId
   comments Comment[]
   votes Vote[]
 }

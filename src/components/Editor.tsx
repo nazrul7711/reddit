@@ -1,10 +1,14 @@
 "use client";
 import TextareaAutosize from "react-textarea-autosize";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { useCallback, useEffect, useRef, useState } from "react";
 import EditorJS from "@editorjs/editorjs";
+// import { headers } from "next/headers";
 
 import { app } from "@/lib/firebase";
+import axios, { AxiosError } from "axios";
+import toast, { Toaster } from "react-hot-toast";
+import { usePathname, useRouter } from "next/navigation";
 type FormValues = {
   title: string;
   subredditId: string;
@@ -18,7 +22,11 @@ const Editor = ({
   className: string;
   subredditId: string;
 }) => {
-  const { register } = useForm<FormValues>({
+  const {
+    register,
+    handleSubmit,
+    formState: errors,
+  } = useForm<FormValues>({
     defaultValues: {
       subredditId,
       title: "",
@@ -139,34 +147,76 @@ const Editor = ({
   useEffect(() => {
     const init = async () => {
       await initializeeditor();
-      setTimeout(() => {});
+
+      _titleRef.current?.focus();
     };
     if (isMounted) {
       init();
-      return () => {};
+      return () => {
+        ref.current?.destroy();
+        ref.current = undefined;
+      };
     }
   }, [initializeeditor, isMounted]);
+  const { ref: titleRef, ...rest } = register("title", {
+    required: "This field is required",
+    minLength: {
+      value: 3,
+      message: "Minimum length of the text area should not be less then 3",
+    },
+    maxLength: {
+      value: 128,
+      message: "The maximum character for text area can't exceed 128",
+    },
+  });
+  let _titleRef = useRef<HTMLTextAreaElement>(null);
+  let pathName = usePathname()
+  let router = useRouter()
+  const submitHandler: SubmitHandler<FormValues> = async (data) => {
+    const blocks = await ref.current?.save();
+    let { title } = data;
+    try {
+      let response = await axios.post("/api/subreddit/post/create", {
+        title,
+        subredditId,
+        content: blocks,
+      });
+      if (response) {
+        toast.success("post created successfully");
+        let path = pathName.split("/").slice(0,-1).join("/")
+        router.push(path)
+        router.refresh()
+
+
+
+      }
+
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.log(error);
+        if (error.response?.status === 401 || error.response?.status === 403) {
+          toast.error(error.response.data.msg);
+
+        }
+      }
+    }
+  };
   return (
     <div className={`${className}`}>
-      <form id="textarea-form">
+      <form id="textarea-form" onSubmit={handleSubmit(submitHandler)}>
         <TextareaAutosize
+          {...rest}
+          ref={(e) => {
+            titleRef(e);
+            // @ts-ignore
+            _titleRef.current = e;
+          }}
           className="outline-none w-full border border-gray-600 p-1"
           placeholder="Title"
-          {...(register("title"),
-          {
-            // required: "Title is needed",
-            // minLength: {
-            //   value: 3,
-            //   message: "Title must be longer then 3 characters",
-            // },
-            // maxLength: {
-            //   value: 128,
-            //   message: "Title must not exceed 128 characters",
-            // },
-          })}
         />
         <div id="editor" />
       </form>
+      <Toaster />
     </div>
   );
 };

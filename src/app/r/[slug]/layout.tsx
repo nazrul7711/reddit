@@ -85,7 +85,7 @@ const SlugLayout = async ({
             <div className="w-3/5">you created this community</div>
           ) : null}
           {/* subreddit.createdId !== session?.user.id  */}
-          {isSubscribed ? (
+          {true ? (
             <SubscribeLeaveToggle
               subredditId={subreddit.id}
               subredditName={slug}
