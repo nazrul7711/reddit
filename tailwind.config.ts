@@ -13,7 +13,10 @@ module.exports = {
       },
     },
     extend: {
-      
+      gridTemplateColumns: {
+        sello: "repeat(auto-fill,minmax(3rem,1fr))",
+      },
+
       width: {
         "54": "54%",
       },

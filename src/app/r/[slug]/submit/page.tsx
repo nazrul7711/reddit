@@ -5,9 +5,7 @@ import { notFound } from 'next/navigation'
 import React from 'react'
 
 const Page = async ({params}:{params:{slug:string}}) => {
-  //find subreddit with current slug
-  //if no subreddit return not found
-  //then make a editor component where u will have form with TextareaAutosize
+
   let subreddit = await db.subreddit.findFirst({where:{
     name:params.slug
   }})

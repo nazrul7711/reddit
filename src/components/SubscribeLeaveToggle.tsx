@@ -21,19 +21,16 @@ const SubscribeLeaveToggle = ({
 }: SubscribeLeaveToggleProps) => {
   let [isSubscribed, setIsSubscribed] = useState(false);
   let { data } = useSession();
+  let email = data?.user.email
+
   useEffect(() => {
     (async () => {
-      let response = await axios.get("/api/subreddit/isSubscribed", {
-        params: {
-          subredditName,
-          email: data?.user.email,
-        },
-      });
-      if (response.status === 200) {
+      let response = await axios.get(`/api/subreddit/isSubscribed?subredditName=${subredditName}&email=${email}`);
+      if (response) {
         setIsSubscribed(true);
       }
     })();
-  }, []);
+  }, [email]);
   let [subscribed, setSubscribed] = useState<boolean>(isSubscribed);
   let { mutate: countMutate } = useSWR(
     ["/api/subreddit/subscriptionCount", subredditName],

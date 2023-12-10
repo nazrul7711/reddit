@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 export async function GET(request: Request) {
   try {
     let { searchParams } = new URL(request.url);
+    let kill = new URL(request.url);
     let subredditName = searchParams.get("subredditName");
     let userEmail = searchParams.get("email");
     if (!subredditName || !userEmail) {
@@ -22,9 +23,8 @@ export async function GET(request: Request) {
         },
       },
     });
-    if (response) {
-      return NextResponse.json({ msg: "subscribed " }, { status: 200 });
-    }
+
+    return NextResponse.json({ msg: "subscribed " }, { status: 200 });  
   } catch (error) {
     return NextResponse.json({ msg: "sth went wrong" }, { status: 500 });
   }

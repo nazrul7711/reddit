@@ -1,8 +1,11 @@
+"use client";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
+import { useState } from "react";
 import { LuHome } from "react-icons/lu";
 
 export default function Home() {
+  let [name, setName] = useState("");
   return (
     <main className="flex flex-col gap-2">
       <h1>Your Feed</h1>
@@ -39,13 +42,33 @@ export default function Home() {
         </li>
       </ul>
       <button className="text-end bg-slate-500">button</button>
-      <div className="text-blue-700">Lula di silva</div>
-      <div className="underline underline-offset-4">Henry tsukamoto</div>
-      <div className="bg-emerald-300 after:content-['after']">
-        Pseudo Element
+      <div className="bg-purple-400 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-tr from-cyan-400 to-red-400 w-fit">
+        HELLO WORLD
       </div>
-      <div className="bg-purple-400 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-tr from-cyan-400 to-red-400 w-fit">HELLO WORLD</div>
-      
+      <div className="grid gap-2 grid-cols-[repeat(auto-fill,minmax(400px,1fr))] auto-rows-[minmax(200px,auto)] bg-blue-200 grid-flow-row">
+        <div className="col-start-2 col-span-2 bg-red-300">one</div>
+        <div>two</div>
+        <div>three</div>
+        <div>four</div>
+      </div>
+      <div className="grid grid-cols-[repeat(4,1fr)] auto-rows-[minmax(100px,auto)] gap-1 grid-flow-dense ">
+        <div className="col-span-2 row-span-2 bg-orange-400">One</div>
+        <div className="col-start-3 row-start-2 row-end-4 bg-orange-200">Two</div>
+        <div className="bg-orange-200">Three</div>
+        <div className="bg-orange-200">Four</div>
+        <div className="col-span-2 col-start-1 col-end-3 row-start-1 row-end-3 row-span-2 bg-orange-400">
+          Five
+        </div>
+        <div className="bg-orange-200">Six</div>
+        <div className="bg-orange-200">Seven</div>
+        <div className="bg-orange-200">Eight</div>
+        <div className="bg-orange-400 col-span-2 row-span-2">Nine</div>
+        <div className="bg-orange-200">Ten</div>
+        <div className="bg-orange-200">Eleven</div>
+        <div className="bg-orange-200">Twelve</div>
+      </div>
+
+      <div>{name}</div>
     </main>
   );
 }
@@ -67,10 +90,13 @@ we add shadcn button this adds button component in ui folder
 
 if u wanna add button kind of style to a link then do className={buttonVariants()}
 
-tailwind flex,items-center,justify-between,px,py,mx,my,bg-zinc-200,h-fit or w-fit,rounded,animation-spin.ping.pulse.bounce,hover:animate-spin,weight,size,letter-spacing,line-clamp-2,leading-2,list-none,list-image-[],list-inside,how to text-align,text-decoration and text-decoration-color and text-decoration-style and text-underline-offset,text-transform,how vertical-align works and how to align vertically in tailwind,how to not do wrap,before:content-[],width:min-content and max-content and fit-content,min-w-max or min means,bg-clip-text,fixed,relative, left-1 bottom-1
+tailwind flex,items-center,justify-between,h-fit or w-fit,rounded,spin.ping,pulse,bounce,weight,size,letter-spacing,line-clamp-2,leading-2,liststyle:none,decimal,list-image-[],list-inside,how to text-align,text-decoration and text-decoration-color and text-decoration-style and text-underline-offset,text-transform,how vertical-align works and how to align vertically in tailwind,how to not do wrap,before:content-[],width:min-content and max-content and fit-content,minimum widths,clip text,how to position,display grid ,grid-template-columns,grid-auto-rows,grid-column,grid-template-columns grid-template-areas grid area,grid-column-start,grid-column-end,span 2 blocks,grid-auto-flow:column , grid-auto-flow:dense,
 
+align-items :start now the height of the element will be determined by its content . if not start it will determined by the area of grid
+align-self is for element
+justify-items and justify-self for inline,place-items and place-self
+align-content and justify-content if the grid-container is smaller than parent container
 
-how to make a animation like spin-slow in tailwind
 
 
 why use Pick<"User","name|email">
@@ -125,9 +151,6 @@ u can write  a promise and also write await in front of it to get the file
 
 in prisma how to create one to many relations and what causes a cycle error and how to get rid of it
 
-if u have modified prisma model what do u do?
-
-if you have async await function and await axios.put runs into an error the next line will not be triggered
 
 handle axios.post inside try and catch and hanlde error in catch block use error.response.status, error.response.data.error or error.response.data.data 
 
@@ -153,18 +176,22 @@ hey explore how link got u link details in editor.js
 
 */
 
-//concerns what, push back on that,enshrined, fall through that is a bummer,m saying with zero malice i mean they seam wholesome,a lawsuit revoking approval its working its way through the courts.if that was to succedd.needlessly put some through hell , finding caught in the middle of ,for the likes of hayes,preemptively choose life,excerbate for people of color significant diparities,modicum of medical understanding,overwhelmingly,dereliction of duty, no inapropriate time to lament abt it,meek
+//concerns what, push back on that,enshrined, fall through that is a bummer,m saying with zero malice i mean they seam wholesome,a lawsuit revoking approval its working its way through the courts.needlessly put some through hell , finding caught in the middle of ,preemptively choose life,excerbate for people of color significant diparities,modicum of medical understanding,overwhelmingly,dereliction of duty, no inapropriate time to lament abt it,meek
 
 //count me convinced, dangerous leaders are currently dime a dozen,to conceal his blistering chops he plays guitar to great leagth,thought about as much he has amazingly,thats not the first time a horse has seemed to have an issue, creepy unreciprocated affection,physched about his achievement, it certifies quirky records,and to design this event and send a adjudicator they can charge anywhere between 12000 to 1/2 a million and this doesn't come cheap, confers a sense of legitimacy , reinforces a cult of personality, check all of the boxes, but then it hit me i dont need it, untenability of these two positions.
-//outside perspective of what ails the company u name it.its ubiquitous. as u can tell, their reputation has taken a bit of a knock here,found itself under scruitny for everyting  for exacerbating income inequality, for all its talk , one of the disillusioned emmployee painted a pretty damninng portrait of the company ,mitigate the harm not to intensify it,cultivated a reputaion ,these lads often use a stint at mckinsey as a spingboard,good at bullshitting your way to a plaushoble sounding answer, novel, thats emblematic of what role mcKinsy play,summed up his mission,they sold themselve with the  notion that they had special insights.some unplesant stains on its records,loudly defend your work there, how many uplifting project do u need to counterbalance feat like opiod,beyond the pale,incumbent upon us to not loose sight,end justifies the meets,america has israels back,shah has modis ear,by saying these things they immediatly tap into the bigger fear,shore up its supplies
+//outside perspective of what ails the company u name it.its ubiquitous. as u can tell, their reputation has taken a bit of a knock here,found itself under scruitny for everyting  for exacerbating income inequality, for all its talk , one of the disillusioned emmployee painted a pretty damninng portrait of the company ,mitigate the harm not to intensify it,cultivated a reputaion ,these lads often use a stint at mckinsey as a spingboard,good at bullshitting your way to a plaushoble sounding answer, novel, thats emblematic of what role mcKinsy play,summed up his mission,they sold themselve with the  notion that they had special insights.some unplesant stains on its records,loudly defend your work there, how many uplifting project do u need to counterbalance feat like opiod,beyond the pale,incumbent upon us to not loose sight,end justifies the means,america has israels back,shah has modis ear,by saying these things they immediatly tap into the bigger fear,shore up its supplies
 
-//position itself with upbeat materials,this growth has been fueled by targeting low income individuals,marginalised economically,its not one off mistake,disparity between what top execs make and rank and file do,things will quikly fall apart,it is hard to overstate the indifferecnce these chains show to their employees,set aside the thousand rodants i know its a big ask,she is giving a blank look honey not even at my lowest,i got standarts i got taste,at a rally he promised to mellow out on islamophobia,whilst i think that,what it spells for the immigrants,tar with this brush , they get to have their apple and eat it too,
+//position itself with upbeat materials,this growth has been fueled by targeting low income individuals,marginalised economically,its not one off mistake,disparity between what top execs make and rank and file do,things will quikly fall apart,it is hard to overstate the indifferecnce these chains show to their employees,set aside the thousand rodants i know its a big ask,she is giving a blank look honey not even at my lowest,i got standarts i got taste,at a rally he promised to mellow out on islamophobia,whilst i think that,what it spells for the immigrants,tar with this brush , they get to have their cake and eat it too,
 
-//the quality of care prisoner recieve is abysmal and its woefully deficient,unsurprisingly the rosy picture u trying to paint doesn't remotely live upto reality,key reasons fo company often deliver substandard care is due to the incentive they are given,this works as incentive to cut corners, even when he was diagnsied with cancer the cabinet was dragging its feet, the whole vote is just ceremonial,
+//the quality of care prisoner recieve is abysmal and its woefully deficient,unsurprisingly the rosy picture u trying to paint doesn't remotely live upto reality,key reasons fo company often deliver substandard care is due to the incentive they are given,this works as incentive to cut corners, even when he was diagnsied with cancer the cabinet was dragging its feet, the whole vote is just ceremonial,given that imbalance many employers skirt the protection that workers are supposed to recieve,thats not one-off,but as frustrating as those situations can be,
 
-//in saw the man in the park with pole,the dog ate my homework.the dog entered my room.it scared me
-//plant is industrial or agriculture.
-//translate, sentiment analysis, voice recognition, diff between nlu and nlg
-//word embedding feature representation of words
-// word vectors are created with word2vec techniques like glove gemsing  pass data and it will create a vector.
-//u can also add a property in file model so that when we have successfull embeddings implemented its status is changed and we can show it in frontend
+//it may look unwise to talk abt technology that may as well make ur job obsolete, they asked to write songs and it gave stellar results  , my only real gripe there.the potential and perils r huge
+
+
+/*
+DOM ,FETCH,canvas,Service Workers,WebSockets,WebRTC ,Web Workers,MediaStream API,Stream
+https://zlibrary.to/top-node.js-blueprints-books
+pro node.js for developers
+node cookbook
+
+ */

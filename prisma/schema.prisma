@@ -50,8 +50,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   username String?
-  post Post? @relation(fields: [postId],references: [id])
-  postId String? @unique @db.ObjectId
+  posts        Post[]
   comment Comment? @relation(fields: [commentId],references: [id])
   commentId String? @unique @db.ObjectId
   commentVote CommentVote? @relation(fields: [commentvoteId],references: [id])
@@ -101,7 +100,7 @@ model Post {
   updatedAt DateTime @updatedAt
   subreddit Subreddit @relation(fields: [subredditId],references: [id])
   subredditId String @db.ObjectId
-  author User?
+  author   User   @relation(fields: [authorId], references: [id],onDelete:NoAction,onUpdate:NoAction)
   authorId String @db.ObjectId
   comments Comment[]
   votes Vote[]
