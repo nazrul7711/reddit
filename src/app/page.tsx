@@ -52,20 +52,9 @@ export default function Home() {
         <div>four</div>
       </div>
       <div className="grid grid-cols-[repeat(4,1fr)] auto-rows-[minmax(100px,auto)] gap-1 grid-flow-dense ">
-        <div className="col-span-2 row-span-2 bg-orange-400">One</div>
-        <div className="col-start-3 row-start-2 row-end-4 bg-orange-200">Two</div>
-        <div className="bg-orange-200">Three</div>
-        <div className="bg-orange-200">Four</div>
-        <div className="col-span-2 col-start-1 col-end-3 row-start-1 row-end-3 row-span-2 bg-orange-400">
-          Five
-        </div>
-        <div className="bg-orange-200">Six</div>
-        <div className="bg-orange-200">Seven</div>
-        <div className="bg-orange-200">Eight</div>
-        <div className="bg-orange-400 col-span-2 row-span-2">Nine</div>
-        <div className="bg-orange-200">Ten</div>
-        <div className="bg-orange-200">Eleven</div>
-        <div className="bg-orange-200">Twelve</div>
+
+
+
       </div>
 
       <div>{name}</div>
@@ -135,7 +124,7 @@ const uploadResults: string[] = (await Promise.all(result)) as string[];
 
 also note that after u have to create storage then only data will get uploaded
 
-403,401,400
+403,401,400,404
 
 do know in while making axios or fetch request pass headers:header here header comes from "next/headers"
 
@@ -150,6 +139,8 @@ when copying code for firebase use whole code like dont delete partial code like
 u can write  a promise and also write await in front of it to get the file 
 
 in prisma how to create one to many relations and what causes a cycle error and how to get rid of it
+
+what aria-label do?
 
 
 handle axios.post inside try and catch and hanlde error in catch block use error.response.status, error.response.data.error or error.response.data.data 
@@ -178,8 +169,8 @@ hey explore how link got u link details in editor.js
 
 //concerns what, push back on that,enshrined, fall through that is a bummer,m saying with zero malice i mean they seam wholesome,a lawsuit revoking approval its working its way through the courts.needlessly put some through hell , finding caught in the middle of ,preemptively choose life,excerbate for people of color significant diparities,modicum of medical understanding,overwhelmingly,dereliction of duty, no inapropriate time to lament abt it,meek
 
-//count me convinced, dangerous leaders are currently dime a dozen,to conceal his blistering chops he plays guitar to great leagth,thought about as much he has amazingly,thats not the first time a horse has seemed to have an issue, creepy unreciprocated affection,physched about his achievement, it certifies quirky records,and to design this event and send a adjudicator they can charge anywhere between 12000 to 1/2 a million and this doesn't come cheap, confers a sense of legitimacy , reinforces a cult of personality, check all of the boxes, but then it hit me i dont need it, untenability of these two positions.
-//outside perspective of what ails the company u name it.its ubiquitous. as u can tell, their reputation has taken a bit of a knock here,found itself under scruitny for everyting  for exacerbating income inequality, for all its talk , one of the disillusioned emmployee painted a pretty damninng portrait of the company ,mitigate the harm not to intensify it,cultivated a reputaion ,these lads often use a stint at mckinsey as a spingboard,good at bullshitting your way to a plaushoble sounding answer, novel, thats emblematic of what role mcKinsy play,summed up his mission,they sold themselve with the  notion that they had special insights.some unplesant stains on its records,loudly defend your work there, how many uplifting project do u need to counterbalance feat like opiod,beyond the pale,incumbent upon us to not loose sight,end justifies the means,america has israels back,shah has modis ear,by saying these things they immediatly tap into the bigger fear,shore up its supplies
+//count me convinced, dangerous leaders are currently dime a dozen,to conceal his blistering chops he plays guitar to great leagth, creepy unreciprocated affection,physched about his achievement, it certifies quirky records,and to design this event and send a adjudicator they can charge anywhere between 12000 to 1/2 a million and this doesn't come cheap, confers a sense of legitimacy , reinforces a cult of personality, check all of the boxes, but then it hit me i dont need it, untenability of these two positions.beat me to the punch,sell urself short,walk all over u,slash to the bone
+//outside perspective of what ails the company u name it.its ubiquitous, their reputation has taken a bit of a knock here,found itself under scruitny for everyting  for exacerbating income inequality, for all its talk , one of the disillusioned emmployee painted a pretty damninng portrait of the company ,mitigate the harm not to intensify it,cultivated a reputaion ,these lads often use a stint at mckinsey as a spingboard,good at bullshitting your way to a plaushoble sounding answer, thats emblematic of what role mcKinsy play,summed up his mission,they sold themselve with the  notion that they had special insights.some unplesant stains on its records,loudly defend your work there, how many uplifting project do u need to counterbalance feat like opiod,beyond the pale,incumbent upon us to not loose sight,end justifies the means,america has israels back,shah has modis ear,by saying these things they immediatly tap into the bigger fear,shore up its supplies
 
 //position itself with upbeat materials,this growth has been fueled by targeting low income individuals,marginalised economically,its not one off mistake,disparity between what top execs make and rank and file do,things will quikly fall apart,it is hard to overstate the indifferecnce these chains show to their employees,set aside the thousand rodants i know its a big ask,she is giving a blank look honey not even at my lowest,i got standarts i got taste,at a rally he promised to mellow out on islamophobia,whilst i think that,what it spells for the immigrants,tar with this brush , they get to have their cake and eat it too,
 

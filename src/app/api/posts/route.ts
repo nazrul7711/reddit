@@ -58,12 +58,6 @@ export async function GET(req: Request) {
       },
       where: whereClause,
     });
-    
-    
-    
-
-
-    console.log(subredditName, posts);
     return NextResponse.json({ posts }, { status: 200 });
   } catch (error) {
     console.log(error);

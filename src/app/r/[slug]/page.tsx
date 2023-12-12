@@ -38,7 +38,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
   if(!subreddit){
     return notFound()
   }
-  console.log(subreddit.posts)
+
 
   return (
     <div className="">
@@ -55,35 +55,3 @@ export default Page;
 //find subreddit include posts include and take {notFound} next/navigation
 //create some button which is client component u wanna have userouter and usePathname pass session object to it
 
-
-
-/**
- posts: ({
-        subreddit: {
-            id: string;
-            name: string;
-            createdAt: Date;
-            updatedAt: Date;
-            createdId: string | null;
-        };
-        author: {
-            id: string;
-            name: string | null;
-            email: string | null;
-            ... 8 more ...;
-            subscriptionId: string | null;
-        } | null;
-        comments: {
-            ...;
-        }[];
-        votes: {
-            ...;
-        }[];
-    } & {
-        ...;
-    })[];
-} & {
-    ...;
-}) | null
-
- */

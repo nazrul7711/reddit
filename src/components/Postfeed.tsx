@@ -1,6 +1,6 @@
 "use client";
-import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+
+import React, { useEffect,} from "react";
 import { ExtendedPost } from "../../db";
 import useSWR from "swr";
 import { fetcher } from "@/lib/fetcher";
@@ -27,13 +27,13 @@ const Postfeed = ({
     // });
     // observer.observe(firstRef.current!);
   }, []);
-  console.log(initialPosts);
+
 
   let { data, error, isLoading } = useSWR(
     `/api/posts?limit=${5}&page=${1}&subredditName=${slugName}`,
     fetcher
   );
-  console.log(data);
+
   let { data: session } = useSession();
 
   return (
@@ -44,7 +44,7 @@ const Postfeed = ({
             const currentVote = post.votes.find(
               (vote: any) => vote.userId === session?.user.id
             );
-            const votesAmt = post.votes.reduce((acc, vote ) => {
+            const votesAmt = post.votes.reduce((acc:number, vote:any ) => {
               if (vote.type === "UP") return acc + 1;
               if (vote.type === "DOWN") return acc - 1;
               return acc;

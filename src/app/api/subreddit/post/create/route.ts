@@ -12,7 +12,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ msg: "User unauthenticated" }, { status: 401 });
   }
   //to see that the user and this subreddit belongs
-  console.log(subredditId, session.user.id);
   let isUserSubscribed = await db.subscription.findFirst({
     where: {
       subredditId,

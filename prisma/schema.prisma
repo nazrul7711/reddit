@@ -138,7 +138,6 @@ model Vote{
   post Post @relation(fields: [postId],references: [id],onDelete: Cascade)
   postId String @db.ObjectId
   type VoteType
-
 }
 
 //subreddit has posts creator subscriptions
