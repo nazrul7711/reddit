@@ -1,11 +1,18 @@
 "use client";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { LuHome } from "react-icons/lu";
 
+import { z } from "zod";
+
+export const newUserSchema = z.object({
+  username: z.string(),
+  name: z.string(),
+});
+
 export default function Home() {
-  let [name, setName] = useState("");
+
   return (
     <main className="flex flex-col gap-2">
       <h1>Your Feed</h1>
@@ -34,30 +41,13 @@ export default function Home() {
         <li className="list-image-none hover:list-image-[url(/check.svg)]">
           one
         </li>
-        <li className="list-image-none hover:list-image-[url(/check.svg)]">
-          two
-        </li>
-        <li className="list-image-none hover:list-image-[url(/check.svg)]">
-          three
-        </li>
       </ul>
+
       <button className="text-end bg-slate-500">button</button>
-      <div className="bg-purple-400 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-tr from-cyan-400 to-red-400 w-fit">
-        HELLO WORLD
-      </div>
       <div className="grid gap-2 grid-cols-[repeat(auto-fill,minmax(400px,1fr))] auto-rows-[minmax(200px,auto)] bg-blue-200 grid-flow-row">
         <div className="col-start-2 col-span-2 bg-red-300">one</div>
-        <div>two</div>
-        <div>three</div>
-        <div>four</div>
       </div>
-      <div className="grid grid-cols-[repeat(4,1fr)] auto-rows-[minmax(100px,auto)] gap-1 grid-flow-dense ">
-
-
-
-      </div>
-
-      <div>{name}</div>
+      <div className="grid grid-cols-[repeat(4,1fr)] auto-rows-[minmax(100px,auto)] gap-1 grid-flow-dense "></div>
     </main>
   );
 }
@@ -161,6 +151,19 @@ u can define a button seprate from form then how to set up link between form and
 
 hey explore how link got u link details in editor.js
 
+how to attach dynamic refs
+
+how to use useEffect so that when axios fetches only the latest url based upon input getting from input element onChange 
+
+how to use intersectionObeserver api
+
+how to create Map in typescript
+
+how to create infinite scrolling
+
+if u have arr where u want to deconstruture two array that are array of complex objects and they may contain duplicate elements how to create this array unique
+
+
 
 
 
@@ -169,7 +172,7 @@ hey explore how link got u link details in editor.js
 
 //concerns what, push back on that,enshrined, fall through that is a bummer,m saying with zero malice i mean they seam wholesome,a lawsuit revoking approval its working its way through the courts.needlessly put some through hell , finding caught in the middle of ,preemptively choose life,excerbate for people of color significant diparities,modicum of medical understanding,overwhelmingly,dereliction of duty, no inapropriate time to lament abt it,meek
 
-//count me convinced, dangerous leaders are currently dime a dozen,to conceal his blistering chops he plays guitar to great leagth, creepy unreciprocated affection,physched about his achievement, it certifies quirky records,and to design this event and send a adjudicator they can charge anywhere between 12000 to 1/2 a million and this doesn't come cheap, confers a sense of legitimacy , reinforces a cult of personality, check all of the boxes, but then it hit me i dont need it, untenability of these two positions.beat me to the punch,sell urself short,walk all over u,slash to the bone
+//count me convinced, dangerous leaders are currently dime a dozen,to conceal his blistering chops he plays guitar to great leagth, confers a sense of legitimacy , reinforces a cult of personality, check all of the boxes, but then it hit me i dont need it, untenability of these two positions.beat me to the punch,sell urself short,walk all over u,slash to the bone
 //outside perspective of what ails the company u name it.its ubiquitous, their reputation has taken a bit of a knock here,found itself under scruitny for everyting  for exacerbating income inequality, for all its talk , one of the disillusioned emmployee painted a pretty damninng portrait of the company ,mitigate the harm not to intensify it,cultivated a reputaion ,these lads often use a stint at mckinsey as a spingboard,good at bullshitting your way to a plaushoble sounding answer, thats emblematic of what role mcKinsy play,summed up his mission,they sold themselve with the  notion that they had special insights.some unplesant stains on its records,loudly defend your work there, how many uplifting project do u need to counterbalance feat like opiod,beyond the pale,incumbent upon us to not loose sight,end justifies the means,america has israels back,shah has modis ear,by saying these things they immediatly tap into the bigger fear,shore up its supplies
 
 //position itself with upbeat materials,this growth has been fueled by targeting low income individuals,marginalised economically,its not one off mistake,disparity between what top execs make and rank and file do,things will quikly fall apart,it is hard to overstate the indifferecnce these chains show to their employees,set aside the thousand rodants i know its a big ask,she is giving a blank look honey not even at my lowest,i got standarts i got taste,at a rally he promised to mellow out on islamophobia,whilst i think that,what it spells for the immigrants,tar with this brush , they get to have their cake and eat it too,
@@ -178,11 +181,30 @@ hey explore how link got u link details in editor.js
 
 //it may look unwise to talk abt technology that may as well make ur job obsolete, they asked to write songs and it gave stellar results  , my only real gripe there.the potential and perils r huge
 
-
 /*
 DOM ,FETCH,canvas,Service Workers,WebSockets,WebRTC ,Web Workers,MediaStream API,Stream
 https://zlibrary.to/top-node.js-blueprints-books
 pro node.js for developers
 node cookbook
 
+
+
+digital
+reason
+ordinary
+pact
+quiz
+raw
+agree
+property
+comic
+blossom
+bottom
+truly
+
+
+
+
+
+sign adult seed top coconut negative runway clay submit usage payment tumble
  */

@@ -32,7 +32,7 @@ export async function PATCH(req: Request) {
         postId,
       },
     });
-    console.log(existingPost)
+
 
     if (existingVote) {
       if (existingVote.type === voteType) {
@@ -41,27 +41,12 @@ export async function PATCH(req: Request) {
             id: existingVote.id,
           },
         });
-        let totalCount = existingPost.votes.reduce((acc, vote) => {
-          if (vote.type === "UP") {
-            return acc + 1;
-          } else if (vote.type === "DOWN") {
-            return acc - 1;
-          }
-          return acc;
-        }, 0);
         return NextResponse.json(
-          { msg: "vote deleted ", count: totalCount },
+          { msg: "vote deleted "},
           { status: 200 }
         );
       }
-      let totalCount = existingPost.votes.reduce((acc, vote) => {
-        if (vote.type === "UP") {
-          return acc + 1;
-        } else if (vote.type === "DOWN") {
-          return acc - 1;
-        }
-        return acc;
-      }, 0);
+      
 
       await db.vote.update({
         where: {
@@ -71,6 +56,23 @@ export async function PATCH(req: Request) {
           type: voteType,
         },
       });
+      let existingPostupdated = await db.post.findUnique({
+        where: {
+          id: postId,
+        },
+        include: {
+          author: true,
+          votes: true,
+        },
+      });
+      let totalCount = existingPostupdated?.votes.reduce((acc, vote) => {
+        if (vote.type === "UP") {
+          return acc + 1;
+        } else if (vote.type === "DOWN") {
+          return acc - 1;
+        }
+        return acc;
+      }, 0);
       return NextResponse.json(
         { msg: "vote updated ", count: totalCount },
         { status: 200 }
@@ -84,7 +86,16 @@ export async function PATCH(req: Request) {
         postId: postId,
       },
     });
-    let totalCount = existingPost.votes.reduce((acc, vote) => {
+    let existingPostcreated = await db.post.findUnique({
+      where: {
+        id: postId,
+      },
+      include: {
+        author: true,
+        votes: true,
+      },
+    });
+    let totalCount = existingPostcreated?.votes.reduce((acc, vote) => {
       if (vote.type === "UP") {
         return acc + 1;
       } else if (vote.type === "DOWN") {
@@ -92,7 +103,7 @@ export async function PATCH(req: Request) {
       }
       return acc;
     }, 0);
-    console.log(totalCount)
+
 
     return NextResponse.json(
       { msg: "vote created", count: totalCount },

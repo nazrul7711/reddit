@@ -13,6 +13,13 @@ module.exports = {
       },
     },
     extend: {
+      visible: {
+        opacity: 1,
+      },
+      hide: {
+        opacity: 0,
+        transition: "opacity 0.3s ease-in-out",
+      },
       gridTemplateColumns: {
         sello: "repeat(auto-fill,minmax(3rem,1fr))",
       },

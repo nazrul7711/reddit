@@ -6,7 +6,7 @@ import { BiUpvote } from "react-icons/bi";
 import { BiDownvote } from "react-icons/bi";
 import axios, { AxiosError } from "axios";
 import toast, { Toaster } from "react-hot-toast";
-
+import { BiSolidUpvote } from "react-icons/bi";
 
 type PostVoteClientProps = {
   initialVotesAmt: number;
@@ -14,33 +14,36 @@ type PostVoteClientProps = {
   postId: string;
 };
 
-const PostVoteClient = ({ initialVotesAmt,initialVote,postId }: PostVoteClientProps) => {
+const PostVoteClient = ({
+  initialVotesAmt,
+  initialVote,
+  postId,
+}: PostVoteClientProps) => {
   let [votesAmount, setVotesAmount] = useState<number>(initialVotesAmt);
-   const [currentVote, setCurrentVote] = useState(initialVote);
+  const [currentVote, setCurrentVote] = useState(initialVote);
   useEffect(() => {
     setCurrentVote(initialVote);
   }, [initialVote]);
 
-   async function upvoteHandler(){
+  async function upvoteHandler() {
     let payload = {
-      voteType:'UP',
-      postId
-    }
-    try{
+      voteType: "UP",
+      postId,
+    };
+    try {
       let res = await axios.patch("/api/subreddit/post/vote", payload);
-      if(res.status===200){
+      if (res.status === 200) {
         console.log(res.data);
-        setVotesAmount(res.data.count)
-        toast.success(res.data.msg)
+        setVotesAmount(res.data.count);
+        toast.success(res.data.msg);
       }
-    }catch(error){
-      if(error instanceof AxiosError){
-        toast.error(error.response?.data.msg)
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data.msg);
       }
     }
-    
   }
-  async function downvoteHandler(){
+  async function downvoteHandler() {
     let payload = {
       voteType: "DOWN",
       postId,
@@ -48,15 +51,14 @@ const PostVoteClient = ({ initialVotesAmt,initialVote,postId }: PostVoteClientPr
     try {
       let res = await axios.patch("/api/subreddit/post/vote", payload);
       if (res.status === 200) {
-        console.log(res.data)
+        console.log(res.data);
         setVotesAmount(res.data.count);
         toast.success(res.data.msg);
       }
-    } catch(error) {
+    } catch (error) {
       if (error instanceof AxiosError) {
         toast.error(error.response?.data.msg);
       }
-
     }
   }
 

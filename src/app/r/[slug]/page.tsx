@@ -39,7 +39,6 @@ const Page = async ({ params }: { params: { slug: string } }) => {
     return notFound()
   }
 
-
   return (
     <div className="">
       <h1>r/{slug}</h1>
@@ -52,6 +51,5 @@ const Page = async ({ params }: { params: { slug: string } }) => {
 };
 
 export default Page;
-//find subreddit include posts include and take {notFound} next/navigation
-//create some button which is client component u wanna have userouter and usePathname pass session object to it
+
 

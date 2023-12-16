@@ -7,9 +7,8 @@ export async function GET(req: Request) {
   let url = new URL(req.url);
   let subredditName = url.searchParams.get("subredditName");
   let limit = url.searchParams.get("limit");
-  let page = url.searchParams.get("page");
+  let page = url.searchParams.get("page")
   const session = await getServerSession(nextOptions);
-  let communityIds: string[] = [];
   if (!session) {
     return NextResponse.json(
       { msg: "user is unauthenticated" },
@@ -60,7 +59,7 @@ export async function GET(req: Request) {
     });
     return NextResponse.json({ posts }, { status: 200 });
   } catch (error) {
-    console.log(error);
+    console.log(error)
     return NextResponse.json({ msg: "sth went wrong" }, { status: 500 });
   }
 }
