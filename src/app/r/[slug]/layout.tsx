@@ -69,7 +69,7 @@ const SlugLayout = async ({
     <div className="grid grid-cols-9 gap-4">
       <div className="col-start-1 col-end-7">{children}</div>
       {/* information sidebar */}
-      <div className="col-start-7 col-end-10 bg-teal-300 hidden sm:block">
+      <div className="col-start-7 col-end-10 hidden sm:block">
         <h2>About r/{slug}</h2>
         <div className="bg-white flex flex-col gap-5 p-6 text-zinc-500">
           <div className="flex justify-between  bg-white">

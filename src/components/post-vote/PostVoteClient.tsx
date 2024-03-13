@@ -51,7 +51,6 @@ const PostVoteClient = ({
     try {
       let res = await axios.patch("/api/subreddit/post/vote", payload);
       if (res.status === 200) {
-        console.log(res.data);
         setVotesAmount(res.data.count);
         toast.success(res.data.msg);
       }

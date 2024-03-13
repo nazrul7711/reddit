@@ -10,7 +10,7 @@ const Postfeed = ({
   slugName,
   initialPosts,
 }: {
-  slugName: string;
+  slugName?: string;
   initialPosts: ExtendedPost[];
 }) => {
   const [pageNumber, setPageNumber] = useState<number>(1);
@@ -27,13 +27,13 @@ const Postfeed = ({
         let response = await fetch(
           `/api/posts?limit=${5}&page=${pageNumber}&subredditName=${slugName}`
         );
-        let { posts }:{posts:ExtendedPost[]} = await response.json();
+        let { posts }: { posts: ExtendedPost[] } = await response.json();
 
         setData((prevData) => {
-            let mergedExtendedPosts =   [...prevData, ...posts]
-            let extendedMap = new Map<String,ExtendedPost>()
-            mergedExtendedPosts.forEach((item)=>extendedMap.set(item.id,item))
-            return Array.from(extendedMap.values())
+          let mergedExtendedPosts = [...prevData];
+          let extendedMap = new Map<String, ExtendedPost>();
+          mergedExtendedPosts.forEach((item) => extendedMap.set(item.id, item));
+          return Array.from(extendedMap.values());
         });
 
         setIsLoading(false);
@@ -61,14 +61,14 @@ const Postfeed = ({
     },
     [isLoading, hasMore]
   );
+  console.log(initialPosts, "kill");
 
-
-
+  let postsData = data.length > 2 ? data : initialPosts;
   return (
     <div>
       <ul className="flex flex-col gap-4">
-        {data &&
-          data.map((post: any, index: number) => {
+        {postsData &&
+          postsData.map((post: any, index: number) => {
             const currentVote = post.votes.find(
               (vote: any) => vote.userId === session?.user.id
             );

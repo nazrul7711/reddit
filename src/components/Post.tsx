@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import { MdInsertComment } from "react-icons/md";
 import EditorOutput from "./EditorOutput";
 import PostVoteClient from "./post-vote/PostVoteClient";
+import Link from "next/link";
 
 type PostProp = {
   post: Post & {
@@ -35,7 +36,11 @@ const Post = ({ subredditName, post, commentAmt,votesAmt:_votesAmt ,currentVote:
   return (
     <div className="p-4 shadow rounded-md">
       <div className="flex space-x-3 items-center">
-        <PostVoteClient initialVotesAmt={_votesAmt} postId = {post.id} initialVote={_currentVote?.type} />
+        <PostVoteClient
+          initialVotesAmt={_votesAmt}
+          postId={post.id}
+          initialVote={_currentVote?.type}
+        />
         {subredditName && (
           <div className="underline underline-offset-2">
             <a href={`/r/${subredditName}`}>r/{subredditName}</a>
@@ -48,7 +53,11 @@ const Post = ({ subredditName, post, commentAmt,votesAmt:_votesAmt ,currentVote:
           <span>{timeDiff(post.createdAt)} ago</span>
         </div>
       </div>
-      <div className="mt-1 text-lg font-semibold">{post.title}</div>
+      <Link href={`/r/${subredditName}/post/${post.id}`}>
+        {" "}
+        <div className="mt-1 text-lg font-semibold">{post.title}</div>
+      </Link>
+
       <div
         className="relative overflow-clip w-full max-h-40"
         ref={editoroutputRef}

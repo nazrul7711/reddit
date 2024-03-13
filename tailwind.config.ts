@@ -1,3 +1,6 @@
+import { Scale } from "lucide-react";
+import { transform } from "next/dist/build/swc";
+
 const { fontFamily } = require("tailwindcss/defaultTheme");
 
 /** @type {import('tailwindcss').Config} */
@@ -6,6 +9,7 @@ module.exports = {
   content: ["./src/app/**/*.{ts,tsx}", "./src/components/**/*.{ts,tsx}"],
   theme: {
     container: {
+      moveHori: "",
       center: true,
       padding: "2rem",
       screens: {
@@ -84,10 +88,15 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
+        moviHori: {
+          "0%": { transform: "scale(1)" },
+          "100%": { transform: "scale(2)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "move-side": "moveHori  0.2s ease-out",
       },
     },
   },

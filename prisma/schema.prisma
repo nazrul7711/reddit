@@ -118,8 +118,6 @@ model Comment{
   replies Comment[] @relation("ReplyTo")
   votes CommentVote[]
   commentId String?
-  
-
 }
 model CommentVote{
   id String  @id @default(auto()) @map("_id") @db.ObjectId
