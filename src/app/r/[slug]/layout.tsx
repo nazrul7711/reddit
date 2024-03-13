@@ -10,6 +10,7 @@ import { buttonVariants } from "@/components/ui/button";
 
 import ShowSubscriptionCount from "@/components/ShowSubscriptionCount";
 
+
 const SlugLayout = async ({
   children,
   params,
@@ -62,7 +63,7 @@ const SlugLayout = async ({
   let date =
     subredditDate &&
     new Date(`${subredditDate[2]}-${subredditDate[0]}-${subredditDate[1]}`);
-  let options = { month: "long", day: "numeric", year: "numeric" };
+  let options :Intl.DateTimeFormatOptions = { month: "long", day: "numeric", year: "numeric" };
   let newDate = date?.toLocaleDateString("en-US", options);
 
   return (
