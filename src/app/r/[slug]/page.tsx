@@ -8,7 +8,7 @@ import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
 
 import React from "react";
-export const INFINITE_SCROLL_PAGINATION_RESULTS = 2;
+const INFINITE_SCROLL_PAGINATION_RESULTS = 2;
 const Page = async ({ params }: { params: { slug: string } }) => {
   let { slug } = params;
   let session = (await getServerSession(nextOptions)) as MiniCreatePostProps;
@@ -26,17 +26,15 @@ const Page = async ({ params }: { params: { slug: string } }) => {
           votes: true,
           subreddit: true,
         },
-        orderBy:{
-          createdAt:"desc"
+        orderBy: {
+          createdAt: "desc",
         },
-        take:INFINITE_SCROLL_PAGINATION_RESULTS 
+        take: INFINITE_SCROLL_PAGINATION_RESULTS,
       },
-      
     },
-    
   });
-  if(!subreddit){
-    return notFound()
+  if (!subreddit) {
+    return notFound();
   }
 
   return (
@@ -45,11 +43,11 @@ const Page = async ({ params }: { params: { slug: string } }) => {
       {session && <MiniCreatePost session={session} />}
       <div className="grid grid-cols-3 auto-rows-[minmax(100px,auto)] gap-4"></div>
 
-      {subreddit.posts && <Postfeed slugName={slug} initialPosts={subreddit.posts}/>}
+      {subreddit.posts && (
+        <Postfeed slugName={slug} initialPosts={subreddit.posts} />
+      )}
     </div>
   );
 };
 
 export default Page;
-
-
